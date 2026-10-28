@@ -6,14 +6,27 @@ class Department:
 class CourseLevel:
     pass
 
+
 class Course:
-    def __init__(self, course_id: int, title: str, department: Department, course_level: CourseLevel, description: str, min_credits: int, max_credits: int, course_materials: list):
+    def __init__(self, course_id: int, title: str, \
+                department_code: str, catalog_number: str, \
+                level: CourseLevel, description: str, \
+                credits: int, average_rating: float, \
+                material_links: list, ratings: list):
         self.course_id = course_id
         self.title = title
-        self.department = department
-        self.course_level = course_level
+        self.department_code = department_code
+        self.catalog_number = catalog_number
+        self.level = level
         self.description = description
-        self.min_credits = min_credits
-        self.max_credits = max_credits
-        self.course_materials = []
+        self.credits = credits
+        self.average_rating = average_rating
+        self.material_links = material_links
+        self.ratings = ratings
+
+    def get_average_rating(self) -> float:
+        return self.average_rating
+
+    def recalculate_average(self):
+        self.average_rating = sum(r.score for r in self.ratings) / len(self.ratings) if self.ratings else 0
 
