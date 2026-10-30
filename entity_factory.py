@@ -1,7 +1,7 @@
-from entity import Entity
-from user import User
-from admin import Admin
-from role import Role
+from Entity import Entity
+from User import User
+from Admin import Admin
+from Role import Role
 
 
 class EntityFactory:

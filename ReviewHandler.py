@@ -2,7 +2,7 @@
 from ReviewStorage import ReviewStorage
 from User import User
 from Admin import Admin
-from course import Course
+from Course import Course
 from Review import Review
 from Reply import Reply
 
