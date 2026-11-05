@@ -4,7 +4,7 @@ from User import User
 from Admin import Admin
 from Course import Course
 from Review import Review
-from Reply import Reply
+from Reply import Reply, List
 
 class ReviewHandler:
 

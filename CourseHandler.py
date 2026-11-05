@@ -1,8 +1,9 @@
 from typing import List, Optional
-from course import Course
+from Course import Course
 from User import User
 from Admin import Admin
 from CourseMaterialLink import CourseMaterialLink
+from CourseStorage import CourseStorage
 
 class CourseHandler():
 

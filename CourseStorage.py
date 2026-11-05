@@ -1,5 +1,5 @@
 from DBConnection import DBConnection
-from course import Course
+from Course import Course
 from CourseMaterialLink import CourseMaterialLink
 from typing import List, Optional
 
