@@ -15,3 +15,9 @@ def course_page(request, courseSlug):
     # courseController.coursePage(request, courseID) per the diagram's
     # int-based coursePage(request, courseID) signature.
     return render(request, 'app/course_page.html', {'courseSlug': courseSlug})
+
+def register(request):
+    return render(request, 'app/register.html')
+
+def login(request):
+    return render(request, 'app/login.html')

@@ -7,11 +7,17 @@
     <link rel="stylesheet" href="{% static 'app/home.css' %}">
 </head>
 <body>
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
     <header>
         <h1>ISU Course Ratings</h1>
     </header>
     <main>
         <p>Find and rate courses at Illinois State University.</p>
+        <a href="/login/">Login</a>
+        <a href="/register/">Register</a>
+        <a href="/api/logout/">Logout</a>
     </main>
 </body>
 </html>

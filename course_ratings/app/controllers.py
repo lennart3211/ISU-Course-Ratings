@@ -1,7 +1,10 @@
+from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.views import View
-
-from app.handlers import AuthHandler
-
 
 class CourseController:
     def search(self, request):
@@ -54,30 +57,36 @@ class CourseController:
 
 
 class AuthController:
-    def __init__(self, authHandler=None):
-        self.authHandler = authHandler or AuthHandler()
-
     def login(self, request):
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        entity = self.authHandler.login(username, password)
+        user = authenticate(username=request.POST.get("username"),\
+                            password=request.POST.get("password"))
+        if user is None:
+            messages.error(request, "Invalid")
+            return redirect("login")
+        auth_login(request, user)
+        messages.success(request, "Logged in")
+        return redirect("home")
 
     def logout(self, request):
-        entity = request.user
-        self.authHandler.logout(entity)
+        auth_logout(request)
+        messages.info(request, "Logged out")
+        return redirect("home")
 
     def register(self, request):
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        user = self.authHandler.registerUser(username, email, password)
+        User.objects.create_user(username=request.POST.get("username"),\
+                                 email=request.POST.get("email"),\
+                                 password=request.POST.get("password"))
+        messages.success(request, "Registered")
+        return redirect("login")
 
     def editAccount(self, request):
-        user = request.user
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        self.authHandler.editAccount(user, username, email)
+        request.user.username = request.POST.get("username")
+        request.user.email = request.POST.get("email")
+        request.user.save()
+        messages.success(request, "Updated")
+        return redirect("home")
 
     def deleteAccount(self, request):
-        user = request.user
-        self.authHandler.deleteAccount(user)
+        request.user.delete()
+        messages.info(request, "Account deleted")
+        return redirect("home")
